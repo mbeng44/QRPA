@@ -1,0 +1,45 @@
+pipeline {
+ agent any
+ stages {
+     
+  stage('clean-up') {
+   steps {
+      sh 'rm -rf QRPA'
+   }
+ }
+ stage('checkout') {
+  steps {
+      sh 'git clone https://github.com/NformiBlandine/QRPA.git '
+  }
+ }
+ stage('build') {
+     steps {
+         sh 'docker build -t nformiblandine/qrpa QRPA'
+     }
+ }
+ stage('push') {
+     steps{
+     withCredentials([usernamePassword(usernameVariable: 'blan', passwordVariable: 'secret', credentialsId: 'dockerpass')]) {
+    
+                  sh '''  
+                  docker login -u "$blan" -p "$secret"
+                 
+                 docker push nformiblandine/qrpa
+                 '''
+     
+
+  }
+     } 
+ }
+ 
+ stage('deploy') {
+     steps {
+     sh   ' aws ecs update-service --cluster NforCluster --service frservice --force-new-deployment --region ca-central-1'
+     }
+ }
+ 
+ 
+
+     
+ }
+}
