@@ -2,19 +2,10 @@ pipeline {
  agent any
  stages {
      
-  stage('clean-up') {
-   steps {
-      sh 'rm -rf QRPA'
-   }
- }
- stage('checkout') {
-  steps {
-      sh 'git clone https://github.com/NformiBlandine/QRPA.git '
-  }
- }
+  
  stage('build') {
      steps {
-         sh 'docker build -t nformiblandine/qrpa QRPA'
+         sh 'docker build -t nformiblandine/qrpa .'
      }
  }
  stage('push') {
