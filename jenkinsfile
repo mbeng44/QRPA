@@ -35,7 +35,7 @@ pipeline {
 stage('deploy') {
      steps {
   //   sh   ' aws ecs update-service --cluster NforCluster --service frservice --force-new-deployment --region ca-central-1'
-       sh ' echo Deployment done'
+       //sh ' echo Deployment done'
      }
  }
  
