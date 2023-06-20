@@ -10,13 +10,13 @@ pipeline {
 }
 
 stage ('sonarqube analysis'){
-     environment {
-  SCANNER_HOME = tool 'sonar-scanner'
-  }
+     //environment {
+  //SCANNER_HOME = tool 'sonar-scanner'
+  //}
     steps {
      withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName:'SonarQube Scanner'){
      sh '''
-        sonar-scanner \
+        ${scannerHome}/bin/sonar-scanner \
   -Dsonar.organization=good-deal \
   -Dsonar.projectKey=good-deal_new-project \
   -Dsonar.sources=. \
