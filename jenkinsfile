@@ -14,7 +14,7 @@ stage ('sonarqube analysis'){
   SCANNER_HOME = tool ""SonarQubeScanner
   }
     steps {
-     withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName:'SonarQube Scanner'){
+     withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName:'sonarcloud'){
      sh '''
         ${SCANNER_HOME}/bin/sonar-scanner \
   -Dsonar.organization=good-deal \
