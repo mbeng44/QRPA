@@ -7,7 +7,25 @@ pipeline {
      steps {
          sh 'docker build -t nformiblandine/qrpa .'
      }
- }
+}
+
+stage ('sonarqube analysis'){
+     environment {
+  SCANNER_HOME = tool 'sonar-scanner'
+  }
+    steps {
+     withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName:'SonarQube Scanner'){
+     sh '''
+        sonar-scanner \
+  -Dsonar.organization=good-deal \
+  -Dsonar.projectKey=good-deal_new-project \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=https://sonarcloud.io
+        '''
+     } 
+    } 
+}
+ 
  stage('push') {
      steps{
      withCredentials([usernamePassword(usernameVariable: 'blan', passwordVariable: 'secret', credentialsId: 'dockerpass')]) {
