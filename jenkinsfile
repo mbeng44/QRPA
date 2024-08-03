@@ -13,18 +13,6 @@ pipeline {
             }
         }
 
-        stage('Static Code Analysis') {
-            steps {
-                // Example of SonarQube Scanner configuration
-                script {
-                    // sonarScanner {
-                    //     // SonarQube configuration
-                    //     projectKey: 'your-project-key',
-                    //     server: 'SonarQube-Server'
-                    // }
-                }
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
