@@ -37,8 +37,8 @@ pipeline {
             steps {
                 script {
                     
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        sh 'docker push ${DOCKER_IMAGE}'
+                    docker.withRegistry('https://registry.hub.docker.com', c2309f0c-9117-4f86-b889-0643466815a6) {
+                        sh 'docker push ${jenkins}'
                     }
                 }
             }
