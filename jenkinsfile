@@ -1,62 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_CREDENTIALS_ID = 'c2309f0c-9117-4f86-b889-0643466815a6' 
-        DOCKER_IMAGE = 'mbeng44/jenkins/jenkins:latest'
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Hello') {
             steps {
-                
-                checkout scm
+                echo 'Hello, World!'
             }
-        }
-
-        stage('Static Code Analysis') {
-            steps {
-                
-                script {
-                    
-                    sh 'sonar-scanner -Dsonar.projectKey=myproject -Dsonar.sources=src -Dsonar.host.url=http://your-sonarqube-server -Dsonar.login=your-sonarqube-token'
-                }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    
-                    sh 'docker build -t ${jenkins} .'
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    
-                    docker.withRegistry('https://registry.hub.docker.com', c2309f0c-9117-4f86-b889-0643466815a6) {
-                        sh 'docker push ${jenkins}'
-                    }
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            
-            cleanWs()
-        }
-        success {
-            
-            echo 'Pipeline completed successfully.'
-        }
-        failure {
-            
-            echo 'Pipeline failed.'
         }
     }
 }
+
